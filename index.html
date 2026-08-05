@@ -3,412 +3,47 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TrendTroves — Ops Manifest</title>
+<title>TrendTroves — Ops Tracker</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
 <style>
-  :root {
-    --ink: #1B2A41;
-    --ink-soft: #48566b;
-    --parchment: #F5EFE1;
-    --parchment-dim: #ece3cf;
-    --card: #FFFDF8;
-    --brass: #C7963C;
-    --brass-dark: #a97a26;
-    --rust: #B5432E;
-    --sage: #5C7A5E;
-    --line: #d9cfb4;
-    --radius: 3px;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    background: var(--parchment);
-    color: var(--ink);
-    font-family: 'Inter', sans-serif;
-    background-image:
-      radial-gradient(circle at 1px 1px, rgba(27,42,65,0.05) 1px, transparent 0);
-    background-size: 22px 22px;
-  }
-  .wrap { max-width: 1080px; margin: 0 auto; padding: 32px 24px 80px; }
-
-  /* Header */
-  header.masthead {
-    border-bottom: 3px solid var(--ink);
-    padding-bottom: 18px;
-    margin-bottom: 28px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    flex-wrap: wrap;
-    gap: 12px;
-  }
-  .brand-mark { display: flex; align-items: baseline; gap: 14px; }
-  h1.brand {
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 2.5rem;
-    letter-spacing: -0.01em;
-    margin: 0;
-    color: var(--ink);
-  }
-  .brand-tag {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    color: var(--ink-soft);
-    border: 1px solid var(--ink-soft);
-    padding: 3px 8px;
-    border-radius: var(--radius);
-  }
-  .manifest-no {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.78rem;
-    color: var(--ink-soft);
-    text-align: right;
-  }
-  .manifest-no strong { color: var(--ink); display: block; font-size: 0.9rem; }
-
-  /* Sync status */
-  .sync-bar {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.75rem;
-    color: var(--ink-soft);
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-bottom: 24px;
-    padding: 8px 12px;
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-  }
-  .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--rust); flex-shrink: 0; }
-  .dot.live { background: var(--sage); }
-
-  /* Section titles */
-  .section-title {
-    font-family: 'IBM Plex Mono', monospace;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    font-size: 0.78rem;
-    color: var(--brass-dark);
-    margin: 40px 0 14px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-  .section-title::after {
-    content: "";
-    flex: 1;
-    height: 1px;
-    background: var(--line);
-  }
-
-  /* Team roster */
-  .roster { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 14px; }
-  .roster-card {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 16px 18px;
-    position: relative;
-    border-left: 4px solid var(--brass);
-  }
-  .roster-card h3 {
-    font-family: 'Fraunces', serif;
-    font-size: 1.15rem;
-    margin: 0 0 2px;
-  }
-  .roster-role { font-size: 0.78rem; color: var(--brass-dark); font-weight: 600; margin-bottom: 8px; }
-  .roster-card ul { margin: 0; padding-left: 18px; font-size: 0.83rem; color: var(--ink-soft); line-height: 1.55; }
-
-  /* Add task */
-  .add-form {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 18px;
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr 2fr auto;
-    gap: 10px;
-    align-items: end;
-  }
-  .add-form label {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.68rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--ink-soft);
-    display: block;
-    margin-bottom: 4px;
-  }
-  .add-form input, .add-form select {
-    width: 100%;
-    font-family: 'Inter', sans-serif;
-    font-size: 0.88rem;
-    padding: 8px 9px;
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    background: #fff;
-    color: var(--ink);
-  }
-  .add-form button {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.78rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    background: var(--ink);
-    color: var(--parchment);
-    border: none;
-    padding: 9px 16px;
-    border-radius: var(--radius);
-    cursor: pointer;
-    white-space: nowrap;
-  }
-  .add-form button:hover { background: var(--brass-dark); }
-
-  /* Board */
-  .board {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 18px;
-    margin-top: 18px;
-  }
-  .column-head {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-    color: var(--ink-soft);
-    margin-bottom: 10px;
-    display: flex;
-    justify-content: space-between;
-  }
-  .column-head .count {
-    background: var(--parchment-dim);
-    border-radius: 10px;
-    padding: 1px 8px;
-    font-weight: 600;
-  }
-  .column-drop {
-    min-height: 60px;
-    padding-bottom: 6px;
-  }
-  .column-drop.dragover { outline: 2px dashed var(--brass); outline-offset: 4px; border-radius: var(--radius); }
-
-  /* Task tag / manifest label */
-  .tag {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    margin-bottom: 12px;
-    position: relative;
-    cursor: grab;
-    box-shadow: 1px 2px 0 rgba(27,42,65,0.05);
-  }
-  .tag::before {
-    content: "";
-    position: absolute;
-    left: 0; top: 30px;
-    width: 100%;
-    border-top: 1px dashed var(--line);
-  }
-  .tag-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 8px 12px;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.08em;
-    color: var(--ink-soft);
-  }
-  .stamp {
-    width: 22px; height: 22px;
-    border-radius: 50%;
-    border: 1.5px solid var(--brass-dark);
-    color: var(--brass-dark);
-    display: flex; align-items: center; justify-content: center;
-    font-family: 'Fraunces', serif;
-    font-weight: 700;
-    font-size: 0.72rem;
-    flex-shrink: 0;
-  }
-  .tag-body { padding: 14px 12px 12px; }
-  .tag-title { font-family: 'Fraunces', serif; font-size: 1.02rem; font-weight: 600; margin: 0 0 6px; line-height: 1.25; }
-  .tag-deliverable { font-size: 0.82rem; color: var(--ink-soft); margin: 0 0 10px; line-height: 1.4; }
-  .tag-foot {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-  }
-  .deadline { color: var(--ink); }
-  .deadline.overdue { color: var(--rust); font-weight: 600; }
-  .del-btn {
-    background: none; border: none; color: var(--line); cursor: pointer;
-    font-family: 'IBM Plex Mono', monospace; font-size: 0.9rem; line-height: 1; padding: 2px 4px;
-  }
-  .del-btn:hover { color: var(--rust); }
-  .empty-note {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.72rem;
-    color: var(--ink-soft);
-    opacity: 0.6;
-    border: 1px dashed var(--line);
-    border-radius: var(--radius);
-    padding: 14px;
-    text-align: center;
-  }
-
-  /* Roadmap strip */
-  .roadmap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-  .phase {
-    background: var(--card);
-    border: 1px solid var(--line);
-    border-radius: var(--radius);
-    padding: 14px;
-  }
-  .phase .num { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; color: var(--brass-dark); }
-  .phase h4 { font-family: 'Fraunces', serif; margin: 4px 0 6px; font-size: 1rem; }
-  .phase p { font-size: 0.78rem; color: var(--ink-soft); margin: 0; line-height: 1.4; }
-
-  footer {
-    margin-top: 50px;
-    padding-top: 16px;
-    border-top: 1px solid var(--line);
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 0.7rem;
-    color: var(--ink-soft);
-    text-align: center;
-  }
-
-  @media (max-width: 800px) {
-    .board { grid-template-columns: 1fr; }
-    .add-form { grid-template-columns: 1fr 1fr; }
-    .roadmap { grid-template-columns: 1fr 1fr; }
-  }
+  body { font-family: 'IBM Plex Sans', sans-serif; }
+  .font-data { font-family: 'IBM Plex Mono', monospace; }
+  .dt-nav { color: #B7D9D6; transition: background .15s ease; }
+  .dt-nav:hover { background: rgba(255,255,255,.08); }
+  .dt-nav.active { background: #F7F5EF; color: #0F4C4F; }
+  .dt-btn { background: #0F4C4F; color: #fff; border: none; cursor: pointer; transition: background .15s ease; }
+  .dt-btn:hover { background: #0C3D40; }
+  .dt-link { color: #7FC7C2; cursor: pointer; }
+  .dt-link:hover { color: #fff; }
+  .stamp { display:inline-block; padding:2px 8px; border:2px solid; border-radius:6px; font-weight:700; text-transform:uppercase; letter-spacing:.05em; font-size:10px; }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+  .field-input { width:100%; padding:8px 12px; border:1px solid #d6d3d1; border-radius:6px; font-size:14px; background:#fff; }
+  .field-label { font-size:12px; font-weight:500; color:#78716c; display:block; margin-bottom:4px; }
 </style>
 </head>
-<body>
-<div class="wrap">
+<body class="bg-stone-100">
+<div id="root" class="max-w-6xl mx-auto p-3 md:p-6"></div>
 
-  <header class="masthead">
-    <div class="brand-mark">
-      <h1 class="brand">TrendTroves</h1>
-      <span class="brand-tag">Ops Manifest</span>
+<!-- login gate -->
+<template id="tpl-gate">
+  <div class="flex items-center justify-center p-8 rounded-xl" style="background:#0B2426; min-height:70vh;">
+    <div class="bg-stone-50 rounded-xl p-8 max-w-sm w-full border border-stone-200 shadow-xl">
+      <div class="font-data text-xs uppercase tracking-widest mb-1" style="color:#C08A1E;">Crew Manifest</div>
+      <h1 class="text-2xl font-bold text-stone-800 mb-1">Who's logging in?</h1>
+      <p class="text-stone-500 text-sm mb-6">Pick your name to open the shared tracker.</p>
+      <div id="gate-buttons" class="space-y-2"></div>
     </div>
-    <div class="manifest-no">
-      <strong id="today-date">—</strong>
-      Nenna · Aoun · Talha
-    </div>
-  </header>
-
-  <div class="sync-bar">
-    <span class="dot" id="sync-dot"></span>
-    <span id="sync-text">Connecting…</span>
   </div>
+</template>
 
-  <section>
-    <div class="section-title">Crew &amp; Duties</div>
-    <div class="roster">
-      <div class="roster-card">
-        <h3>Aoun</h3>
-        <div class="roster-role">Business Lead &amp; Strategy</div>
-        <ul>
-          <li>Product approval, final calls</li>
-          <li>Financial tracking &amp; profitability</li>
-          <li>Weekly planning, supplier negotiation</li>
-        </ul>
-      </div>
-      <div class="roster-card">
-        <h3>Nenna</h3>
-        <div class="roster-role">Sales &amp; Marketplace Lead</div>
-        <ul>
-          <li>eBay account &amp; listings</li>
-          <li>Competitor research, customer replies</li>
-          <li>Listing copy &amp; optimisation</li>
-        </ul>
-      </div>
-      <div class="roster-card">
-        <h3>Talha</h3>
-        <div class="roster-role">Research &amp; Operations Lead</div>
-        <ul>
-          <li>Product &amp; supplier research</li>
-          <li>Supplier verification</li>
-          <li>Spreadsheets, process docs, analytics</li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-title">Log a Task</div>
-    <form class="add-form" id="add-form">
-      <div style="grid-column: span 2;">
-        <label for="f-title">Task</label>
-        <input id="f-title" type="text" placeholder="e.g. Source 20 suppliers" required>
-      </div>
-      <div>
-        <label for="f-owner">Owner</label>
-        <select id="f-owner">
-          <option>Aoun</option>
-          <option>Nenna</option>
-          <option>Talha</option>
-        </select>
-      </div>
-      <div>
-        <label for="f-deadline">Deadline</label>
-        <input id="f-deadline" type="date">
-      </div>
-      <button type="submit">+ Add to board</button>
-    </form>
-  </section>
-
-  <section>
-    <div class="section-title">Task Board</div>
-    <div class="board">
-      <div>
-        <div class="column-head"><span>To Do</span><span class="count" id="count-todo">0</span></div>
-        <div class="column-drop" id="col-todo" data-status="todo"></div>
-      </div>
-      <div>
-        <div class="column-head"><span>In Progress</span><span class="count" id="count-doing">0</span></div>
-        <div class="column-drop" id="col-doing" data-status="doing"></div>
-      </div>
-      <div>
-        <div class="column-head"><span>Done</span><span class="count" id="count-done">0</span></div>
-        <div class="column-drop" id="col-done" data-status="done"></div>
-      </div>
-    </div>
-  </section>
-
-  <section>
-    <div class="section-title">Roadmap Reference</div>
-    <div class="roadmap">
-      <div class="phase"><span class="num">Ph. 1 — Mo. 1–3</span><h4>Validation</h4><p>First listings, first sales, first £1,000 profit.</p></div>
-      <div class="phase"><span class="num">Ph. 2 — Mo. 4–12</span><h4>Optimisation</h4><p>Consistent profit, winning products, better suppliers.</p></div>
-      <div class="phase"><span class="num">Ph. 3 — Yr. 2</span><h4>Scaling</h4><p>Amazon, TikTok Shop, branding, £3–6k/mo.</p></div>
-      <div class="phase"><span class="num">Ph. 4 — Yr. 3+</span><h4>Growth</h4><p>Private label, multi-channel, £6–9k+/mo.</p></div>
-    </div>
-  </section>
-
-  <footer>
-    Research → Validate → Sell → Reinvest → Scale
-  </footer>
-</div>
-
-<!-- Firebase (free tier) — powers live shared sync across all three of you -->
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
 <script>
-/* =========================================================
-   1) PASTE YOUR FIREBASE CONFIG HERE (see README.md, step 2)
-   ========================================================= */
+/* ============================= CONFIG ============================= */
 const firebaseConfig = {
   apiKey: "AIzaSyDTyrwtIKC8FBU5Skm17EVUmBkAHXbklnQ",
   authDomain: "trendtroves-71975.firebaseapp.com",
@@ -417,160 +52,704 @@ const firebaseConfig = {
   messagingSenderId: "103843800419",
   appId: "1:103843800419:web:f0c2d0e59ee2a940125f56"
 };
+const TEAM = ['Aoun', 'Nenna', 'Talha'];
+const EXPENSE_CATEGORIES = ['Ads', 'Supplies', 'Software/Tools', 'Shipping', 'Samples', 'Other'];
 
-const dot = document.getElementById('sync-dot');
-const syncText = document.getElementById('sync-text');
-document.getElementById('today-date').textContent = new Date().toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' });
+firebase.initializeApp(firebaseConfig);
+const db = firebase.firestore();
 
-let db = null;
-let useLocal = true;
+/* ============================= STATE ============================= */
+const state = {
+  connected: false,
+  user: localStorage.getItem('trendtroves_user') || null,
+  tab: 'overview',
+  tasks: [], suppliers: [], products: [], sales: [], expenses: [], hours: []
+};
 
-function setStatus(live, msg) {
-  dot.classList.toggle('live', live);
-  syncText.textContent = msg;
+const root = document.getElementById('root');
+const uid = () => Date.now().toString(36) + Math.random().toString(36).slice(2, 7);
+const todayStr = () => new Date().toISOString().slice(0, 10);
+const esc = (s) => { const d = document.createElement('div'); d.textContent = s == null ? '' : String(s); return d.innerHTML; };
+const money = (n) => { const v = Number(n); return isNaN(v) ? '£0.00' : '£' + v.toFixed(2); };
+const fmtDate = (d) => { if (!d) return '—'; const dt = new Date(d + 'T00:00:00'); return isNaN(dt.getTime()) ? d : dt.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); };
+const isOverdue = (deadline, status) => deadline && status !== 'Done' && deadline < todayStr();
+const safeUrl = (u) => { if (!u) return '#'; return /^https?:\/\//i.test(u) ? u : 'https://' + u; };
+
+const STAMP_COLORS = {
+  'Not Started': 'color:#78716c;border-color:#d6d3d1;', 'In Progress': 'color:#b45309;border-color:#f59e0b;',
+  'Done': 'color:#047857;border-color:#059669;', 'Researching': 'color:#78716c;border-color:#d6d3d1;',
+  'Testing': 'color:#b45309;border-color:#f59e0b;', 'Live': 'color:#047857;border-color:#059669;',
+  'Rejected': 'color:#be123c;border-color:#f43f5e;', 'Active': 'color:#0369a1;border-color:#0ea5e9;',
+  'Sold': 'color:#047857;border-color:#059669;', 'Ended': 'color:#78716c;border-color:#d6d3d1;',
+  'Out of Stock': 'color:#be123c;border-color:#f43f5e;'
+};
+const stamp = (status) => `<span class="stamp" style="${STAMP_COLORS[status] || 'color:#78716c;border-color:#d6d3d1;'}">${esc(status)}</span>`;
+
+/* ============================= FIRESTORE HELPERS ============================= */
+function listen(collection, onData) {
+  return db.collection(collection).orderBy('createdAt').onSnapshot(snap => {
+    const rows = [];
+    snap.forEach(doc => rows.push({ id: doc.id, ...doc.data() }));
+    onData(rows);
+    render();
+  }, err => console.error(collection, 'listen error:', err));
+}
+function addDoc(collection, data) {
+  return db.collection(collection).add({ ...data, by: state.user, createdAt: Date.now() });
+}
+function updateDoc(collection, id, patch) {
+  return db.collection(collection).doc(id).update(patch);
+}
+function deleteDoc(collection, id) {
+  return db.collection(collection).doc(id).delete();
 }
 
-// Fall back to a local-only demo mode until Firebase is configured
-if (firebaseConfig.apiKey === "PASTE_ME") {
-  setStatus(false, "Demo mode — tasks save to this browser only. Add your Firebase config in index.html to sync across all three of you.");
-} else {
-  try {
-    firebase.initializeApp(firebaseConfig);
-    db = firebase.firestore();
-    firebase.auth().signInAnonymously().then(() => {
-      useLocal = false;
-      setStatus(true, "Live — synced with Aoun, Nenna &amp; Talha");
-      listenTasks();
-    }).catch(err => setStatus(false, "Sync failed: " + err.message));
-  } catch (e) {
-    setStatus(false, "Sync failed: " + e.message);
-  }
-}
-
-const columns = { todo: document.getElementById('col-todo'), doing: document.getElementById('col-doing'), done: document.getElementById('col-done') };
-const counts = { todo: document.getElementById('count-todo'), doing: document.getElementById('count-doing'), done: document.getElementById('count-done') };
-
-function localKey() { return 'trendtroves_tasks'; }
-function loadLocal() { return JSON.parse(localStorage.getItem(localKey()) || '[]'); }
-function saveLocal(tasks) { localStorage.setItem(localKey(), JSON.stringify(tasks)); }
-
-function render(tasks) {
-  Object.values(columns).forEach(c => c.innerHTML = '');
-  const byStatus = { todo: [], doing: [], done: [] };
-  tasks.forEach(t => byStatus[t.status || 'todo'].push(t));
-
-  Object.keys(byStatus).forEach(status => {
-    counts[status].textContent = byStatus[status].length;
-    if (byStatus[status].length === 0) {
-      const empty = document.createElement('div');
-      empty.className = 'empty-note';
-      empty.textContent = status === 'todo' ? 'Nothing queued' : status === 'doing' ? 'Nothing in motion' : 'Nothing shipped yet';
-      columns[status].appendChild(empty);
-      return;
-    }
-    byStatus[status].forEach(t => columns[status].appendChild(taskCard(t)));
+/* ============================= LOGIN GATE ============================= */
+function renderGate() {
+  const tpl = document.getElementById('tpl-gate').content.cloneNode(true);
+  const wrap = tpl.querySelector('#gate-buttons');
+  TEAM.forEach(name => {
+    const btn = document.createElement('button');
+    btn.className = 'w-full text-left px-4 py-3 rounded-lg border-2 border-stone-200 hover:border-teal-700 hover:bg-teal-50 font-medium text-stone-700 flex items-center justify-between';
+    btn.innerHTML = `${esc(name)} <span class="text-stone-300">›</span>`;
+    btn.addEventListener('click', () => {
+      localStorage.setItem('trendtroves_user', name);
+      state.user = name;
+      render();
+    });
+    wrap.appendChild(btn);
   });
+  root.innerHTML = '';
+  root.appendChild(tpl);
 }
 
-function taskCard(t) {
-  const el = document.createElement('div');
-  el.className = 'tag';
-  el.draggable = true;
-  el.dataset.id = t.id;
+/* ============================= SHELL ============================= */
+const TABS = [
+  ['overview', 'Overview'], ['tasks', 'Tasks'], ['suppliers', 'Suppliers'],
+  ['products', 'Products'], ['sales', 'Listings'], ['expenses', 'Expenses'], ['hours', 'Hours']
+];
 
-  const overdue = t.deadline && t.status !== 'done' && new Date(t.deadline) < new Date(new Date().toDateString());
-  const initial = (t.owner || '?')[0];
-
-  el.innerHTML = `
-    <div class="tag-top">
-      <span>#${String(t.seq || '').padStart(3,'0')}</span>
-      <span class="stamp">${initial}</span>
-    </div>
-    <div class="tag-body">
-      <p class="tag-title">${escapeHtml(t.title)}</p>
-      <div class="tag-foot">
-        <span class="deadline ${overdue ? 'overdue' : ''}">${t.deadline ? formatDate(t.deadline) : 'no date'}</span>
-        <button class="del-btn" title="Remove" data-id="${t.id}">✕</button>
+function renderShell() {
+  root.innerHTML = `
+    <div class="rounded-xl overflow-hidden" style="background:#0B2426;">
+      <div class="flex flex-col md:flex-row">
+        <div class="md:w-56 shrink-0 p-4 md:p-5">
+          <div class="mb-2 flex items-center gap-2">
+            <span id="sync-dot" style="width:8px;height:8px;border-radius:50%;background:#B5432E;flex-shrink:0;"></span>
+            <span id="sync-text" class="font-data text-[11px]" style="color:#B7D9D6;">Connecting…</span>
+          </div>
+          <div class="mb-6">
+            <div class="font-data text-xs uppercase tracking-widest" style="color:#C08A1E;">TrendTroves</div>
+            <div class="text-white font-bold text-lg">Ops Tracker</div>
+          </div>
+          <nav id="nav" class="flex md:flex-col gap-1 overflow-x-auto md:overflow-visible pb-2 md:pb-0"></nav>
+          <div class="hidden md:block mt-8 pt-4 border-t border-white/10">
+            <div class="text-xs font-data mb-2" style="color:#B7D9D6;">Logged in as ${esc(state.user)}</div>
+            <button id="switch-user" class="dt-link text-xs block mb-2">Switch user</button>
+          </div>
+        </div>
+        <div class="flex-1 bg-stone-50 md:rounded-tl-2xl p-4 md:p-6" style="min-height:70vh;">
+          <div class="md:hidden mb-4 flex items-center justify-between text-xs text-stone-500 font-data">
+            <span>${esc(state.user)}</span>
+            <button id="switch-user-m" class="underline">Switch</button>
+          </div>
+          <div id="panels"></div>
+        </div>
       </div>
     </div>`;
 
-  el.addEventListener('dragstart', e => e.dataTransfer.setData('text/plain', t.id));
-  el.querySelector('.del-btn').addEventListener('click', () => removeTask(t.id));
+  const nav = document.getElementById('nav');
+  TABS.forEach(([id, label]) => {
+    const b = document.createElement('button');
+    b.className = `dt-nav flex items-center gap-2 px-3 py-2 rounded-lg text-sm whitespace-nowrap ${state.tab === id ? 'active font-semibold' : 'font-medium'}`;
+    b.textContent = label;
+    b.addEventListener('click', () => { state.tab = id; render(); });
+    nav.appendChild(b);
+  });
+
+  const switchUser = () => { localStorage.removeItem('trendtroves_user'); state.user = null; render(); };
+  document.getElementById('switch-user').addEventListener('click', switchUser);
+  document.getElementById('switch-user-m').addEventListener('click', switchUser);
+
+  const dot = document.getElementById('sync-dot');
+  const txt = document.getElementById('sync-text');
+  if (state.connected) { dot.style.background = '#5C7A5E'; txt.textContent = 'Live — synced with the team'; }
+  else { txt.textContent = 'Connecting…'; }
+
+  renderPanel();
+}
+
+function renderPanel() {
+  const panels = document.getElementById('panels');
+  if (!panels) return;
+  const renderers = { overview: panelOverview, tasks: panelTasks, suppliers: panelSuppliers, products: panelProducts, sales: panelSales, expenses: panelExpenses, hours: panelHours };
+  panels.innerHTML = '';
+  panels.appendChild(renderers[state.tab]());
+}
+
+function render() {
+  if (!state.user) { renderGate(); return; }
+  renderShell();
+}
+
+/* ============================= SMALL UI HELPERS ============================= */
+function statCard(label, value, sub, color) {
+  const el = document.createElement('div');
+  el.className = 'bg-white border border-stone-200 rounded-lg p-4';
+  el.innerHTML = `<div class="font-data text-3xl font-semibold" style="color:${color || '#0F4C4F'}">${esc(value)}</div>
+    <div class="text-xs uppercase tracking-wide text-stone-500 mt-1">${esc(label)}</div>
+    ${sub ? `<div class="font-data text-xs text-stone-400 mt-1">${esc(sub)}</div>` : ''}`;
   return el;
 }
-
-function escapeHtml(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
-function formatDate(iso) { const d = new Date(iso); return d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' }); }
-
-Object.entries(columns).forEach(([status, el]) => {
-  el.addEventListener('dragover', e => { e.preventDefault(); el.classList.add('dragover'); });
-  el.addEventListener('dragleave', () => el.classList.remove('dragover'));
-  el.addEventListener('drop', e => {
-    e.preventDefault();
-    el.classList.remove('dragover');
-    const id = e.dataTransfer.getData('text/plain');
-    moveTask(id, status);
+function deleteBtn(onConfirm) {
+  const wrap = document.createElement('div');
+  wrap.innerHTML = `<button class="text-stone-300 hover:text-rose-500 text-xs">✕</button>`;
+  const btn = wrap.firstElementChild;
+  let confirming = false;
+  btn.addEventListener('click', () => {
+    if (!confirming) { confirming = true; btn.textContent = 'confirm?'; btn.className = 'text-rose-600 text-xs font-semibold'; return; }
+    onConfirm();
   });
-});
-
-let seqCounter = 1;
-
-function listenTasks() {
-  db.collection('tasks').orderBy('created').onSnapshot(snap => {
-    const tasks = [];
-    snap.forEach(doc => tasks.push({ id: doc.id, ...doc.data() }));
-    seqCounter = tasks.length + 1;
-    render(tasks);
+  return wrap;
+}
+function toggleForm(container, buildFormFn, label) {
+  const bar = document.createElement('div');
+  bar.className = 'flex items-center justify-between mb-4';
+  const btn = document.createElement('button');
+  btn.className = 'dt-btn px-3 py-2 rounded-lg text-sm font-medium';
+  btn.textContent = '+ ' + label;
+  const formHolder = document.createElement('div');
+  let open = false;
+  btn.addEventListener('click', () => {
+    open = !open;
+    btn.textContent = open ? 'Cancel' : '+ ' + label;
+    formHolder.innerHTML = '';
+    if (open) formHolder.appendChild(buildFormFn(() => { open = false; render(); }));
   });
+  return { bar, btn, formHolder };
 }
 
-function addTask(title, owner, deadline) {
-  const task = { title, owner, deadline: deadline || null, status: 'todo', created: Date.now(), seq: seqCounter++ };
-  if (useLocal) {
-    const tasks = loadLocal();
-    task.id = 'local-' + Date.now();
-    tasks.push(task);
-    saveLocal(tasks);
-    render(tasks);
-  } else {
-    db.collection('tasks').add(task);
+/* ============================= OVERVIEW ============================= */
+function panelOverview() {
+  const wrap = document.createElement('div');
+  const openTasks = state.tasks.filter(t => t.status !== 'Done');
+  const overdue = state.tasks.filter(t => isOverdue(t.deadline, t.status));
+  const activeListings = state.sales.filter(s => s.status === 'Active');
+  const soldItems = state.sales.filter(s => s.status === 'Sold');
+  const totalProfit = soldItems.reduce((sum, s) => sum + ((Number(s.soldPrice || s.listPrice) || 0) - (Number(s.supplierCost) || 0)), 0);
+  const pipeline = state.products.filter(p => p.status === 'Researching' || p.status === 'Testing');
+  const thisMonth = todayStr().slice(0, 7);
+  const monthExpenses = state.expenses.filter(e => (e.date || '').slice(0, 7) === thisMonth).reduce((s, e) => s + (Number(e.amount) || 0), 0);
+  const weekAgo = new Date(Date.now() - 7 * 86400000).toISOString().slice(0, 10);
+  const weekHours = state.hours.filter(h => (h.date || '') >= weekAgo).reduce((s, h) => s + (Number(h.hours) || 0), 0);
+
+  wrap.innerHTML = `<div class="mb-5">
+      <div class="font-data text-xs uppercase tracking-widest mb-1" style="color:#C08A1E;">Operations Overview</div>
+      <h2 class="text-xl font-bold text-stone-800">Where things stand</h2>
+    </div>`;
+  const grid = document.createElement('div');
+  grid.className = 'grid grid-cols-2 md:grid-cols-4 gap-3 mb-4';
+  grid.appendChild(statCard('Open tasks', openTasks.length, overdue.length ? `${overdue.length} overdue` : 'on track', overdue.length ? '#B5432E' : '#0F4C4F'));
+  grid.appendChild(statCard('Suppliers', state.suppliers.length, `${state.suppliers.filter(s => s.verified).length} verified`));
+  grid.appendChild(statCard('In pipeline', pipeline.length, 'products'));
+  grid.appendChild(statCard('Active listings', activeListings.length, `${money(totalProfit)} profit banked`));
+  wrap.appendChild(grid);
+  const grid2 = document.createElement('div');
+  grid2.className = 'grid grid-cols-2 gap-3 mb-6';
+  grid2.appendChild(statCard('Spent this month', money(monthExpenses), 'across the team'));
+  grid2.appendChild(statCard('Hours this week', weekHours.toFixed(1), 'logged by all three'));
+  wrap.appendChild(grid2);
+
+  const upcoming = openTasks.filter(t => t.deadline).sort((a, b) => a.deadline.localeCompare(b.deadline)).slice(0, 5);
+  const box = document.createElement('div');
+  box.className = 'bg-white border border-stone-200 rounded-lg p-4';
+  box.innerHTML = `<h3 class="text-sm font-semibold text-stone-700 mb-3">Coming up</h3>` +
+    (upcoming.length === 0 ? `<p class="text-sm text-stone-400 italic">Nothing on the clock.</p>` :
+      `<div class="space-y-2">${upcoming.map(t => `<div class="flex items-center justify-between text-sm gap-3">
+        <span class="text-stone-700">${esc(t.description)}</span>
+        <span class="font-data text-xs shrink-0 ${isOverdue(t.deadline, t.status) ? 'text-rose-600 font-semibold' : 'text-stone-400'}">${esc(t.owner)} · ${fmtDate(t.deadline)}</span>
+      </div>`).join('')}</div>`);
+  wrap.appendChild(box);
+  return wrap;
+}
+
+/* ============================= TASKS ============================= */
+function panelTasks() {
+  const wrap = document.createElement('div');
+  const header = document.createElement('div');
+  header.className = 'flex items-center justify-between mb-4';
+  header.innerHTML = `<div><h2 class="text-lg font-bold text-stone-800">Tasks</h2>
+    <p class="text-xs text-stone-500 font-data">${state.tasks.filter(t => t.status !== 'Done').length} open · ${state.tasks.length} total</p></div>`;
+  const { btn, formHolder } = toggleForm(wrap, buildTaskForm, 'New task');
+  header.appendChild(btn);
+  wrap.appendChild(header);
+  wrap.appendChild(formHolder);
+
+  const list = document.createElement('div');
+  list.className = 'space-y-2';
+  const sorted = [...state.tasks].sort((a, b) => {
+    const aDone = a.status === 'Done', bDone = b.status === 'Done';
+    if (aDone !== bDone) return aDone ? 1 : -1;
+    return (a.deadline || '9999').localeCompare(b.deadline || '9999');
+  });
+  if (sorted.length === 0) list.innerHTML = `<p class="text-sm text-stone-400 italic py-6 text-center">No tasks logged yet.</p>`;
+  sorted.forEach(t => list.appendChild(taskCard(t)));
+  wrap.appendChild(list);
+  return wrap;
+}
+
+function taskCard(t) {
+  const card = document.createElement('div');
+  card.className = `bg-white border rounded-lg p-3.5 ${isOverdue(t.deadline, t.status) ? 'border-rose-300' : 'border-stone-200'}`;
+  card.innerHTML = `<div class="flex items-start justify-between gap-3">
+    <div class="min-w-0 flex-1">
+      <p class="text-sm font-medium text-stone-800">${esc(t.description)}</p>
+      ${t.deliverable ? `<p class="text-xs text-stone-500 mt-0.5">→ ${esc(t.deliverable)}</p>` : ''}
+      <div class="flex items-center gap-3 mt-2 text-xs font-data text-stone-400">
+        <span>${esc(t.owner)}</span>
+        ${t.deadline ? `<span class="${isOverdue(t.deadline, t.status) ? 'text-rose-600 font-semibold' : ''}">${isOverdue(t.deadline, t.status) ? 'OVERDUE · ' : ''}${fmtDate(t.deadline)}</span>` : ''}
+      </div>
+    </div>
+    <div class="flex flex-col items-end gap-2 shrink-0">${stamp(t.status)}
+      <div class="flex items-center gap-1" id="task-controls-${t.id}"></div>
+    </div>
+  </div>`;
+  const controls = card.querySelector(`#task-controls-${t.id}`);
+  if (t.status !== 'Done') {
+    const sel = document.createElement('select');
+    sel.className = 'text-xs border border-stone-200 rounded px-1 py-0.5';
+    ['Not Started', 'In Progress', 'Done'].forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; if (s === t.status) o.selected = true; sel.appendChild(o); });
+    sel.addEventListener('change', () => updateDoc('tasks', t.id, { status: sel.value }));
+    controls.appendChild(sel);
   }
+  controls.appendChild(deleteBtn(() => deleteDoc('tasks', t.id)).firstElementChild);
+  return card;
 }
 
-function moveTask(id, status) {
-  if (useLocal) {
-    const tasks = loadLocal();
-    const t = tasks.find(x => x.id === id);
-    if (t) t.status = status;
-    saveLocal(tasks);
-    render(tasks);
-  } else {
-    db.collection('tasks').doc(id).update({ status });
+function buildTaskForm(close) {
+  const f = document.createElement('div');
+  f.className = 'bg-stone-50 border border-stone-200 rounded-lg p-4 mb-4 space-y-3';
+  f.innerHTML = `
+    <div><label class="field-label">Task</label><input id="tf-desc" class="field-input" placeholder="e.g. Find 20 suppliers for phone cases"></div>
+    <div class="grid grid-cols-2 gap-3">
+      <div><label class="field-label">Owner</label><select id="tf-owner" class="field-input">${TEAM.map(n => `<option ${n === state.user ? 'selected' : ''}>${n}</option>`).join('')}</select></div>
+      <div><label class="field-label">Deadline</label><input id="tf-deadline" type="date" class="field-input"></div>
+    </div>
+    <div><label class="field-label">Deliverable — what does "done" look like?</label><input id="tf-deliv" class="field-input"></div>
+    <button id="tf-save" class="dt-btn px-4 py-2 rounded-md text-sm font-medium">Save task</button>`;
+  f.querySelector('#tf-save').addEventListener('click', () => {
+    const description = f.querySelector('#tf-desc').value.trim();
+    if (!description) return;
+    addDoc('tasks', { description, owner: f.querySelector('#tf-owner').value, deadline: f.querySelector('#tf-deadline').value, deliverable: f.querySelector('#tf-deliv').value.trim(), status: 'Not Started' });
+    close();
+  });
+  return f;
+}
+
+/* ============================= SUPPLIERS ============================= */
+function panelSuppliers() {
+  const wrap = document.createElement('div');
+  const header = document.createElement('div');
+  header.className = 'flex items-center justify-between mb-4';
+  header.innerHTML = `<div><h2 class="text-lg font-bold text-stone-800">Suppliers</h2>
+    <p class="text-xs text-stone-500 font-data">${state.suppliers.length} logged · ${state.suppliers.filter(s => s.verified).length} verified</p></div>`;
+  const { btn, formHolder } = toggleForm(wrap, buildSupplierForm, 'New supplier');
+  header.appendChild(btn);
+  wrap.appendChild(header);
+  wrap.appendChild(formHolder);
+
+  const note = document.createElement('div');
+  note.className = 'text-xs text-stone-400 font-data mb-3 bg-stone-100 border border-stone-200 rounded p-2';
+  note.textContent = 'Paste the supplier listing link — fill in price/shipping/stock yourself for now. Auto-fetch from a link needs a small backend step (ask me when you\'re ready to add it).';
+  wrap.appendChild(note);
+
+  const list = document.createElement('div');
+  list.className = 'space-y-2';
+  if (state.suppliers.length === 0) list.innerHTML = `<p class="text-sm text-stone-400 italic py-6 text-center">No suppliers logged yet.</p>`;
+  state.suppliers.forEach(s => list.appendChild(supplierCard(s)));
+  wrap.appendChild(list);
+  return wrap;
+}
+
+function supplierCard(s) {
+  const card = document.createElement('div');
+  card.className = 'bg-white border border-stone-200 rounded-lg p-3.5';
+  const titleHtml = s.link ? `<a href="${esc(safeUrl(s.link))}" target="_blank" rel="noopener" class="text-sm font-medium text-stone-800 hover:underline hover:text-teal-700">${esc(s.name)} ↗</a>` : `<span class="text-sm font-medium text-stone-800">${esc(s.name)}</span>`;
+  card.innerHTML = `<div class="flex items-start justify-between gap-3">
+    <div class="min-w-0 flex-1">
+      <div class="flex items-center gap-2 flex-wrap">${titleHtml} ${s.verified ? stamp('Done') : ''}</div>
+      <p class="text-xs text-stone-500 mt-0.5">${esc(s.product)}</p>
+      <div class="flex items-center gap-3 mt-2 text-xs font-data text-stone-500 flex-wrap">
+        ${s.price ? `<span>${esc(s.price)}</span>` : ''}
+        ${s.shippingTime ? `<span>${esc(s.shippingTime)}</span>` : ''}
+        <span>${'★'.repeat(Number(s.rating) || 0)}${'☆'.repeat(5 - (Number(s.rating) || 0))}</span>
+        ${s.inStock === false ? `<span class="text-rose-600 font-semibold">OUT OF STOCK</span>` : ''}
+      </div>
+      ${s.notes ? `<p class="text-xs text-stone-400 mt-1">${esc(s.notes)}</p>` : ''}
+    </div>
+    <div class="flex flex-col items-end gap-2 shrink-0" id="sup-controls-${s.id}"></div>
+  </div>`;
+  const controls = card.querySelector(`#sup-controls-${s.id}`);
+  const vBtn = document.createElement('button');
+  vBtn.className = `text-xs px-2 py-1 rounded border font-data uppercase ${s.verified ? 'border-emerald-500 text-emerald-700' : 'border-stone-300 text-stone-400'}`;
+  vBtn.textContent = s.verified ? 'Verified' : 'Verify';
+  vBtn.addEventListener('click', () => updateDoc('suppliers', s.id, { verified: !s.verified }));
+  controls.appendChild(vBtn);
+  controls.appendChild(deleteBtn(() => deleteDoc('suppliers', s.id)).firstElementChild);
+  return card;
+}
+
+function buildSupplierForm(close) {
+  const f = document.createElement('div');
+  f.className = 'bg-stone-50 border border-stone-200 rounded-lg p-4 mb-4 space-y-3';
+  f.innerHTML = `
+    <div class="grid grid-cols-2 gap-3">
+      <div><label class="field-label">Supplier name</label><input id="sf-name" class="field-input"></div>
+      <div><label class="field-label">Product / category</label><input id="sf-product" class="field-input"></div>
+    </div>
+    <div><label class="field-label">Listing link</label><input id="sf-link" class="field-input" placeholder="https://..."></div>
+    <div class="grid grid-cols-3 gap-3">
+      <div><label class="field-label">Price</label><input id="sf-price" class="field-input" placeholder="£4.50"></div>
+      <div><label class="field-label">Shipping time</label><input id="sf-ship" class="field-input" placeholder="7–14 days"></div>
+      <div><label class="field-label">Rating</label><select id="sf-rating" class="field-input">${[1,2,3,4,5].map(n=>`<option value="${n}" ${n===3?'selected':''}>${n} / 5</option>`).join('')}</select></div>
+    </div>
+    <div><label class="field-label">Notes</label><input id="sf-notes" class="field-input"></div>
+    <button id="sf-save" class="dt-btn px-4 py-2 rounded-md text-sm font-medium">Save supplier</button>`;
+  f.querySelector('#sf-save').addEventListener('click', () => {
+    const name = f.querySelector('#sf-name').value.trim();
+    if (!name) return;
+    addDoc('suppliers', { name, product: f.querySelector('#sf-product').value.trim(), link: f.querySelector('#sf-link').value.trim(), price: f.querySelector('#sf-price').value.trim(), shippingTime: f.querySelector('#sf-ship').value.trim(), rating: f.querySelector('#sf-rating').value, notes: f.querySelector('#sf-notes').value.trim(), verified: false, inStock: true });
+    close();
+  });
+  return f;
+}
+
+/* ============================= PRODUCTS ============================= */
+function panelProducts() {
+  const wrap = document.createElement('div');
+  const header = document.createElement('div');
+  header.className = 'flex items-center justify-between mb-4';
+  header.innerHTML = `<div><h2 class="text-lg font-bold text-stone-800">Product research</h2>
+    <p class="text-xs text-stone-500 font-data">${state.products.length} logged · ${state.products.filter(p => p.status === 'Live').length} live</p></div>`;
+  const { btn, formHolder } = toggleForm(wrap, buildProductForm, 'New product');
+  header.appendChild(btn);
+  wrap.appendChild(header);
+  wrap.appendChild(formHolder);
+
+  const list = document.createElement('div');
+  list.className = 'space-y-2';
+  if (state.products.length === 0) list.innerHTML = `<p class="text-sm text-stone-400 italic py-6 text-center">No products logged yet.</p>`;
+  state.products.forEach(p => list.appendChild(productCard(p)));
+  wrap.appendChild(list);
+  return wrap;
+}
+
+function productCard(p) {
+  const margin = (Number(p.sellPrice) || 0) - (Number(p.cost) || 0);
+  const card = document.createElement('div');
+  card.className = 'bg-white border border-stone-200 rounded-lg p-3.5';
+  const titleHtml = p.sourceLink ? `<a href="${esc(safeUrl(p.sourceLink))}" target="_blank" rel="noopener" class="text-sm font-medium text-stone-800 hover:underline hover:text-teal-700">${esc(p.name)} ↗</a>` : `<span class="text-sm font-medium text-stone-800">${esc(p.name)}</span>`;
+  card.innerHTML = `<div class="flex items-start justify-between gap-3">
+    <div class="min-w-0 flex-1">
+      ${titleHtml}
+      <div class="flex items-center gap-3 mt-1.5 text-xs font-data text-stone-500 flex-wrap">
+        ${p.cost ? `<span>Cost ${money(p.cost)}</span>` : ''}
+        ${p.sellPrice ? `<span>Sell ${money(p.sellPrice)}</span>` : ''}
+        ${(p.cost || p.sellPrice) ? `<span class="${margin > 0 ? 'text-emerald-600 font-semibold' : 'text-rose-500'}">Margin ${money(margin)}</span>` : ''}
+        <span>${esc(p.competition)} competition</span>
+      </div>
+      ${p.notes ? `<p class="text-xs text-stone-400 mt-1">${esc(p.notes)}</p>` : ''}
+    </div>
+    <div class="flex flex-col items-end gap-2 shrink-0">${stamp(p.status)}
+      <div class="flex items-center gap-1" id="prod-controls-${p.id}"></div>
+    </div>
+  </div>`;
+  const controls = card.querySelector(`#prod-controls-${p.id}`);
+  const sel = document.createElement('select');
+  sel.className = 'text-xs border border-stone-200 rounded px-1 py-0.5';
+  ['Researching', 'Testing', 'Live', 'Rejected'].forEach(s => { const o = document.createElement('option'); o.value = s; o.textContent = s; if (s === p.status) o.selected = true; sel.appendChild(o); });
+  sel.addEventListener('change', () => updateDoc('products', p.id, { status: sel.value }));
+  controls.appendChild(sel);
+  controls.appendChild(deleteBtn(() => deleteDoc('products', p.id)).firstElementChild);
+  return card;
+}
+
+function buildProductForm(close) {
+  const f = document.createElement('div');
+  f.className = 'bg-stone-50 border border-stone-200 rounded-lg p-4 mb-4 space-y-3';
+  f.innerHTML = `
+    <div><label class="field-label">Product name</label><input id="pf-name" class="field-input"></div>
+    <div class="grid grid-cols-3 gap-3">
+      <div><label class="field-label">Cost price</label><input id="pf-cost" class="field-input" placeholder="3.20"></div>
+      <div><label class="field-label">Est. sell price</label><input id="pf-sell" class="field-input" placeholder="12.99"></div>
+      <div><label class="field-label">Competition</label><select id="pf-comp" class="field-input"><option>Low</option><option selected>Medium</option><option>High</option></select></div>
+    </div>
+    <div><label class="field-label">Source link</label><input id="pf-link" class="field-input" placeholder="https://..."></div>
+    <div><label class="field-label">Notes</label><input id="pf-notes" class="field-input"></div>
+    <button id="pf-save" class="dt-btn px-4 py-2 rounded-md text-sm font-medium">Save product</button>`;
+  f.querySelector('#pf-save').addEventListener('click', () => {
+    const name = f.querySelector('#pf-name').value.trim();
+    if (!name) return;
+    addDoc('products', { name, cost: f.querySelector('#pf-cost').value.trim(), sellPrice: f.querySelector('#pf-sell').value.trim(), competition: f.querySelector('#pf-comp').value, sourceLink: f.querySelector('#pf-link').value.trim(), notes: f.querySelector('#pf-notes').value.trim(), status: 'Researching' });
+    close();
+  });
+  return f;
+}
+
+/* ============================= SALES / LISTINGS ============================= */
+function panelSales() {
+  const wrap = document.createElement('div');
+  const totalProfit = state.sales.filter(s => s.status === 'Sold').reduce((sum, s) => sum + ((Number(s.soldPrice || s.listPrice) || 0) - (Number(s.supplierCost) || 0)), 0);
+  const header = document.createElement('div');
+  header.className = 'flex items-center justify-between mb-4';
+  header.innerHTML = `<div><h2 class="text-lg font-bold text-stone-800">eBay Listings</h2>
+    <p class="text-xs text-stone-500 font-data">${state.sales.filter(s => s.status === 'Active').length} active · ${money(totalProfit)} profit banked</p></div>`;
+  const { btn, formHolder } = toggleForm(wrap, buildSaleForm, 'New listing');
+  header.appendChild(btn);
+  wrap.appendChild(header);
+  wrap.appendChild(formHolder);
+
+  const note = document.createElement('div');
+  note.className = 'text-xs text-stone-400 font-data mb-3 bg-stone-100 border border-stone-200 rounded p-2';
+  note.textContent = 'These are logged manually for now. Pulling live counts straight from your eBay seller account is possible via eBay\'s API, but needs a small backend to hold the API key securely — happy to build that next.';
+  wrap.appendChild(note);
+
+  const list = document.createElement('div');
+  list.className = 'space-y-2';
+  if (state.sales.length === 0) list.innerHTML = `<p class="text-sm text-stone-400 italic py-6 text-center">No listings logged yet.</p>`;
+  state.sales.forEach(s => list.appendChild(saleCard(s)));
+  wrap.appendChild(list);
+  return wrap;
+}
+
+function saleCard(s) {
+  const profit = s.status === 'Sold' ? (Number(s.soldPrice || s.listPrice) || 0) - (Number(s.supplierCost) || 0) : null;
+  const card = document.createElement('div');
+  card.className = 'bg-white border border-stone-200 rounded-lg p-3.5';
+  const titleHtml = s.link ? `<a href="${esc(safeUrl(s.link))}" target="_blank" rel="noopener" class="text-sm font-medium text-stone-800 hover:underline hover:text-teal-700">${esc(s.item)} ↗</a>` : `<span class="text-sm font-medium text-stone-800">${esc(s.item)}</span>`;
+  card.innerHTML = `<div class="flex items-start justify-between gap-3">
+    <div class="min-w-0 flex-1">
+      ${titleHtml}
+      <div class="flex items-center gap-3 mt-1.5 text-xs font-data text-stone-500 flex-wrap">
+        ${s.listPrice ? `<span>Listed ${money(s.listPrice)}</span>` : ''}
+        ${s.dateListed ? `<span>${fmtDate(s.dateListed)}</span>` : ''}
+        ${profit !== null ? `<span class="${profit > 0 ? 'text-emerald-600 font-semibold' : 'text-rose-500'}">Profit ${money(profit)}</span>` : ''}
+      </div>
+      ${s.notes ? `<p class="text-xs text-stone-400 mt-1">${esc(s.notes)}</p>` : ''}
+    </div>
+    <div class="flex flex-col items-end gap-2 shrink-0">${stamp(s.status)}
+      <div class="flex items-center gap-1" id="sale-controls-${s.id}"></div>
+    </div>
+  </div>`;
+  const controls = card.querySelector(`#sale-controls-${s.id}`);
+  if (s.status === 'Active') {
+    const soldBtn = document.createElement('button');
+    soldBtn.className = 'text-xs px-2 py-1 rounded border border-emerald-500 text-emerald-700 font-data uppercase';
+    soldBtn.textContent = 'Sold';
+    soldBtn.addEventListener('click', () => {
+      const price = prompt('Sold for how much (£)?', s.listPrice || '');
+      if (price === null) return;
+      updateDoc('sales', s.id, { status: 'Sold', soldPrice: price });
+    });
+    const endBtn = document.createElement('button');
+    endBtn.className = 'text-xs px-2 py-1 rounded border border-stone-300 text-stone-400 font-data uppercase';
+    endBtn.textContent = 'End';
+    endBtn.addEventListener('click', () => updateDoc('sales', s.id, { status: 'Ended' }));
+    controls.appendChild(soldBtn);
+    controls.appendChild(endBtn);
   }
+  controls.appendChild(deleteBtn(() => deleteDoc('sales', s.id)).firstElementChild);
+  return card;
 }
 
-function removeTask(id) {
-  if (useLocal) {
-    const tasks = loadLocal().filter(x => x.id !== id);
-    saveLocal(tasks);
-    render(tasks);
-  } else {
-    db.collection('tasks').doc(id).delete();
-  }
+function buildSaleForm(close) {
+  const f = document.createElement('div');
+  f.className = 'bg-stone-50 border border-stone-200 rounded-lg p-4 mb-4 space-y-3';
+  f.innerHTML = `
+    <div><label class="field-label">Item</label><input id="slf-item" class="field-input"></div>
+    <div><label class="field-label">eBay listing link</label><input id="slf-link" class="field-input" placeholder="https://..."></div>
+    <div class="grid grid-cols-3 gap-3">
+      <div><label class="field-label">Supplier cost</label><input id="slf-cost" class="field-input" placeholder="3.20"></div>
+      <div><label class="field-label">List price</label><input id="slf-price" class="field-input" placeholder="12.99"></div>
+      <div><label class="field-label">Date listed</label><input id="slf-date" type="date" class="field-input" value="${todayStr()}"></div>
+    </div>
+    <div><label class="field-label">Notes</label><input id="slf-notes" class="field-input"></div>
+    <button id="slf-save" class="dt-btn px-4 py-2 rounded-md text-sm font-medium">Save listing</button>`;
+  f.querySelector('#slf-save').addEventListener('click', () => {
+    const item = f.querySelector('#slf-item').value.trim();
+    if (!item) return;
+    addDoc('sales', { item, link: f.querySelector('#slf-link').value.trim(), supplierCost: f.querySelector('#slf-cost').value.trim(), listPrice: f.querySelector('#slf-price').value.trim(), dateListed: f.querySelector('#slf-date').value, notes: f.querySelector('#slf-notes').value.trim(), status: 'Active', soldPrice: '' });
+    close();
+  });
+  return f;
 }
 
-document.getElementById('add-form').addEventListener('submit', e => {
-  e.preventDefault();
-  const title = document.getElementById('f-title').value.trim();
-  const owner = document.getElementById('f-owner').value;
-  const deadline = document.getElementById('f-deadline').value;
-  if (!title) return;
-  addTask(title, owner, deadline);
-  e.target.reset();
+/* ============================= EXPENSES ============================= */
+function panelExpenses() {
+  const wrap = document.createElement('div');
+  const total = state.expenses.reduce((s, e) => s + (Number(e.amount) || 0), 0);
+  const header = document.createElement('div');
+  header.className = 'flex items-center justify-between mb-4';
+  header.innerHTML = `<div><h2 class="text-lg font-bold text-stone-800">Expenses</h2>
+    <p class="text-xs text-stone-500 font-data">${state.expenses.length} logged · ${money(total)} total</p></div>`;
+  const { btn, formHolder } = toggleForm(wrap, buildExpenseForm, 'New expense');
+  header.appendChild(btn);
+  wrap.appendChild(header);
+  wrap.appendChild(formHolder);
+
+  const perPerson = document.createElement('div');
+  perPerson.className = 'grid grid-cols-3 gap-3 mb-4';
+  TEAM.forEach(name => {
+    const sum = state.expenses.filter(e => e.spentBy === name).reduce((s, e) => s + (Number(e.amount) || 0), 0);
+    perPerson.appendChild(statCard(name, money(sum), 'spent'));
+  });
+  wrap.appendChild(perPerson);
+
+  const list = document.createElement('div');
+  list.className = 'space-y-2';
+  const sorted = [...state.expenses].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  if (sorted.length === 0) list.innerHTML = `<p class="text-sm text-stone-400 italic py-6 text-center">No expenses logged yet.</p>`;
+  sorted.forEach(e => list.appendChild(expenseCard(e)));
+  wrap.appendChild(list);
+  return wrap;
+}
+
+function expenseCard(e) {
+  const card = document.createElement('div');
+  card.className = 'bg-white border border-stone-200 rounded-lg p-3.5';
+  card.innerHTML = `<div class="flex items-start justify-between gap-3">
+    <div class="min-w-0 flex-1">
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="text-sm font-medium text-stone-800">${esc(e.description)}</span>
+        <span class="font-data text-sm font-semibold" style="color:#B5432E;">${money(e.amount)}</span>
+      </div>
+      <div class="flex items-center gap-3 mt-1.5 text-xs font-data text-stone-500 flex-wrap">
+        <span>${esc(e.spentBy)}</span>
+        <span>${esc(e.category)}</span>
+        ${e.date ? `<span>${fmtDate(e.date)}</span>` : ''}
+      </div>
+      ${e.notes ? `<p class="text-xs text-stone-400 mt-1">${esc(e.notes)}</p>` : ''}
+    </div>
+    <div id="exp-controls-${e.id}"></div>
+  </div>`;
+  card.querySelector(`#exp-controls-${e.id}`).appendChild(deleteBtn(() => deleteDoc('expenses', e.id)).firstElementChild);
+  return card;
+}
+
+function buildExpenseForm(close) {
+  const f = document.createElement('div');
+  f.className = 'bg-stone-50 border border-stone-200 rounded-lg p-4 mb-4 space-y-3';
+  f.innerHTML = `
+    <div><label class="field-label">What was it for?</label><input id="ef-desc" class="field-input" placeholder="e.g. Facebook ads boost"></div>
+    <div class="grid grid-cols-3 gap-3">
+      <div><label class="field-label">Amount (£)</label><input id="ef-amount" class="field-input" placeholder="25.00"></div>
+      <div><label class="field-label">Category</label><select id="ef-cat" class="field-input">${EXPENSE_CATEGORIES.map(c => `<option>${c}</option>`).join('')}</select></div>
+      <div><label class="field-label">Spent by</label><select id="ef-by" class="field-input">${TEAM.map(n => `<option ${n === state.user ? 'selected' : ''}>${n}</option>`).join('')}</select></div>
+    </div>
+    <div class="grid grid-cols-2 gap-3">
+      <div><label class="field-label">Date</label><input id="ef-date" type="date" class="field-input" value="${todayStr()}"></div>
+      <div><label class="field-label">Notes</label><input id="ef-notes" class="field-input"></div>
+    </div>
+    <button id="ef-save" class="dt-btn px-4 py-2 rounded-md text-sm font-medium">Save expense</button>`;
+  f.querySelector('#ef-save').addEventListener('click', () => {
+    const description = f.querySelector('#ef-desc').value.trim();
+    const amount = f.querySelector('#ef-amount').value.trim();
+    if (!description || !amount) return;
+    addDoc('expenses', { description, amount, category: f.querySelector('#ef-cat').value, spentBy: f.querySelector('#ef-by').value, date: f.querySelector('#ef-date').value, notes: f.querySelector('#ef-notes').value.trim() });
+    close();
+  });
+  return f;
+}
+
+/* ============================= HOURS ============================= */
+function panelHours() {
+  const wrap = document.createElement('div');
+  const totalHours = state.hours.reduce((s, h) => s + (Number(h.hours) || 0), 0);
+  const header = document.createElement('div');
+  header.className = 'flex items-center justify-between mb-4';
+  header.innerHTML = `<div><h2 class="text-lg font-bold text-stone-800">Hours</h2>
+    <p class="text-xs text-stone-500 font-data">${state.hours.length} entries · ${totalHours.toFixed(1)}h total</p></div>`;
+  const { btn, formHolder } = toggleForm(wrap, buildHoursForm, 'Log hours');
+  header.appendChild(btn);
+  wrap.appendChild(header);
+  wrap.appendChild(formHolder);
+
+  const perPerson = document.createElement('div');
+  perPerson.className = 'grid grid-cols-3 gap-3 mb-4';
+  TEAM.forEach(name => {
+    const sum = state.hours.filter(h => h.person === name).reduce((s, h) => s + (Number(h.hours) || 0), 0);
+    perPerson.appendChild(statCard(name, sum.toFixed(1) + 'h', 'logged total'));
+  });
+  wrap.appendChild(perPerson);
+
+  const list = document.createElement('div');
+  list.className = 'space-y-2';
+  const sorted = [...state.hours].sort((a, b) => (b.date || '').localeCompare(a.date || ''));
+  if (sorted.length === 0) list.innerHTML = `<p class="text-sm text-stone-400 italic py-6 text-center">No hours logged yet.</p>`;
+  sorted.forEach(h => list.appendChild(hoursCard(h)));
+  wrap.appendChild(list);
+  return wrap;
+}
+
+function hoursCard(h) {
+  const card = document.createElement('div');
+  card.className = 'bg-white border border-stone-200 rounded-lg p-3.5';
+  card.innerHTML = `<div class="flex items-start justify-between gap-3">
+    <div class="min-w-0 flex-1">
+      <div class="flex items-center gap-2 flex-wrap">
+        <span class="text-sm font-medium text-stone-800">${esc(h.task)}</span>
+        <span class="font-data text-sm font-semibold" style="color:#0F4C4F;">${Number(h.hours || 0).toFixed(1)}h</span>
+      </div>
+      <div class="flex items-center gap-3 mt-1.5 text-xs font-data text-stone-500 flex-wrap">
+        <span>${esc(h.person)}</span>
+        ${h.date ? `<span>${fmtDate(h.date)}</span>` : ''}
+      </div>
+      ${h.notes ? `<p class="text-xs text-stone-400 mt-1">${esc(h.notes)}</p>` : ''}
+    </div>
+    <div id="hr-controls-${h.id}"></div>
+  </div>`;
+  card.querySelector(`#hr-controls-${h.id}`).appendChild(deleteBtn(() => deleteDoc('hours', h.id)).firstElementChild);
+  return card;
+}
+
+function buildHoursForm(close) {
+  const f = document.createElement('div');
+  f.className = 'bg-stone-50 border border-stone-200 rounded-lg p-4 mb-4 space-y-3';
+  f.innerHTML = `
+    <div><label class="field-label">What did you work on?</label><input id="hf-task" class="field-input" placeholder="e.g. Listing optimisation"></div>
+    <div class="grid grid-cols-3 gap-3">
+      <div><label class="field-label">Who</label><select id="hf-who" class="field-input">${TEAM.map(n => `<option ${n === state.user ? 'selected' : ''}>${n}</option>`).join('')}</select></div>
+      <div><label class="field-label">Hours</label><input id="hf-hours" class="field-input" placeholder="2.5"></div>
+      <div><label class="field-label">Date</label><input id="hf-date" type="date" class="field-input" value="${todayStr()}"></div>
+    </div>
+    <div><label class="field-label">Notes</label><input id="hf-notes" class="field-input"></div>
+    <button id="hf-save" class="dt-btn px-4 py-2 rounded-md text-sm font-medium">Save hours</button>`;
+  f.querySelector('#hf-save').addEventListener('click', () => {
+    const task = f.querySelector('#hf-task').value.trim();
+    const hours = f.querySelector('#hf-hours').value.trim();
+    if (!task || !hours) return;
+    addDoc('hours', { task, person: f.querySelector('#hf-who').value, hours, date: f.querySelector('#hf-date').value, notes: f.querySelector('#hf-notes').value.trim() });
+    close();
+  });
+  return f;
+}
+
+/* ============================= BOOT ============================= */
+render();
+firebase.auth().signInAnonymously().then(() => {
+  state.connected = true;
+  listen('tasks', rows => state.tasks = rows);
+  listen('suppliers', rows => state.suppliers = rows);
+  listen('products', rows => state.products = rows);
+  listen('sales', rows => state.sales = rows);
+  listen('expenses', rows => state.expenses = rows);
+  listen('hours', rows => state.hours = rows);
+  render();
+}).catch(err => {
+  console.error('Auth failed:', err);
+  state.connected = false;
+  render();
 });
-
-// Boot local mode immediately if not using Firebase
-if (useLocal) render(loadLocal());
 </script>
 </body>
 </html>
