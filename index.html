@@ -574,4 +574,24 @@ if (useLocal) render(loadLocal());
 </script>
 </body>
 </html>
-npm install firebase
+// Import the functions you need from the SDKs you need
+import { initializeApp } from "firebase/app";
+import { getAnalytics } from "firebase/analytics";
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: "AIzaSyCCaLn-5VRMwJePXOOG0-x8NWZxNG_IAFA",
+  authDomain: "team-troves.firebaseapp.com",
+  projectId: "team-troves",
+  storageBucket: "team-troves.firebasestorage.app",
+  messagingSenderId: "1009207177164",
+  appId: "1:1009207177164:web:b2fa9e13c53a92faa23769",
+  measurementId: "G-XMQ73ZQ3QW"
+};
+
+// Initialize Firebase
+const app = initializeApp(firebaseConfig);
+const analytics = getAnalytics(app);
