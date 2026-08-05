@@ -410,12 +410,12 @@
    1) PASTE YOUR FIREBASE CONFIG HERE (see README.md, step 2)
    ========================================================= */
 const firebaseConfig = {
-  apiKey: "PASTE_ME",
-  authDomain: "PASTE_ME",
-  projectId: "PASTE_ME",
-  storageBucket: "PASTE_ME",
-  messagingSenderId: "PASTE_ME",
-  appId: "PASTE_ME"
+  apiKey: "AIzaSyDTyrwtIKC8FBU5Skm17EVUmBkAHXbklnQ",
+  authDomain: "trendtroves-71975.firebaseapp.com",
+  projectId: "trendtroves-71975",
+  storageBucket: "trendtroves-71975.firebasestorage.app",
+  messagingSenderId: "103843800419",
+  appId: "1:103843800419:web:f0c2d0e59ee2a940125f56"
 };
 
 const dot = document.getElementById('sync-dot');
@@ -567,30 +567,10 @@ document.getElementById('add-form').addEventListener('submit', e => {
   if (!title) return;
   addTask(title, owner, deadline);
   e.target.reset();
-  
-<script type="module">
-  // 1. Imports from CDN (complete URLs)
-  import { initializeApp } from "https://gstatic.com";
-  import { getFirestore } from "https://gstatic.com";
+});
 
-  // 2. Firebase Configuration Object
-  const firebaseConfig = {
-    apiKey: "AIzaSyDTyrwtIKC8FBU5Skm17EVUmBkAHXbklnQ",
-    authDomain: "://firebaseapp.com",
-    projectId: "trendtroves-71975",
-    storageBucket: "trendtroves-71975.firebasestorage.app",
-    messagingSenderId: "103843800419",
-    appId: "1:103843800419:web:f0c2d0e59ee2a940125f56"
-  };
-
-  // 3. Initialize Firebase Services
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-</script>
 // Boot local mode immediately if not using Firebase
 if (useLocal) render(loadLocal());
-  
 </script>
 </body>
 </html>
-
